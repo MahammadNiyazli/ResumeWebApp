@@ -1,4 +1,4 @@
-package main.java.com.company.resume.controller;
+package com.company.resume.controller;
 
 import dao.inter.UserDaoInter;
 import entity.User;
