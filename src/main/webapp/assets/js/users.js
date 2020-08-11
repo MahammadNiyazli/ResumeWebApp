@@ -1,7 +1,4 @@
-function showHide(){
-   var btnSearch = document.getElementById("btnSearch");
-    if(btnSearch.visib){
-        btnSearch.visib = false;
-
-    }
+function setIdForDelete(id) {
+   var elem = document.getElementById("idForDelete");
+   elem.value = id;
 }

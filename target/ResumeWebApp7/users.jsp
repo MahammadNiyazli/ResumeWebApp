@@ -17,8 +17,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="assets/js/users.js"></script>
     <title>JSP Page</title>
 </head>
 <body >
@@ -68,11 +68,10 @@
                 <td><%=u.getNationality().getNationality() == null ? "empty" : u.getNationality().getNationality()%>
                 </td>
                 <td>
-                    <form method="POST" action="userdetail">
-                    <input type="hidden" name="id" value="<%=u.getId()%>">
-                    <input type="hidden" name="action" value="delete">
-                    <button class="btn btn-danger" type="submit" value="delete" ><i style="font-size:15px" class="far fa-trash-alt"></i></button>
-                    </form>
+
+                    <button class="btn btn-danger" type="submit" value="delete" data-toggle="modal" data-target="#exampleModal" onclick="setIdForDelete(<%=u.getId()%>)">
+                        <i style="font-size:15px" class="far fa-trash-alt"></i></button>
+
                 </td>
                 <td>
                     <form method="GET" action="userdetail">
@@ -85,6 +84,30 @@
             <%}%>
             </tbody>
         </table>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <form action="userdetail" method="POST">
+                <input type="hidden" name="id" value="" id="idForDelete">
+                <input type="hidden" name="action" value="delete">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger" >Delete</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 </body>
