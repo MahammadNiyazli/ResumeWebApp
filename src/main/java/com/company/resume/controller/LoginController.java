@@ -1,8 +1,10 @@
 package com.company.resume.controller;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import dao.inter.UserDaoInter;
 import entity.User;
 import main.Context;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,40 +21,34 @@ import java.util.List;
 @WebServlet(name = "LoginController", urlPatterns = {"/login"})
 
 public class LoginController extends HttpServlet {
+
+    private UserDaoInter userDao = Context.instanceUserDao();
+    private static  BCrypt.Verifyer verify = BCrypt.verifyer();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-        String surname = req.getParameter("surname");
-        if(name!=null && surname!=null){
-        UserDaoInter userDao = Context.instanceUserDao();
-        List<User> list = null;
-        try {
-            list = userDao.getAll(null,null,null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+      try {
+          String email = req.getParameter("email");
+          String password = req.getParameter("password");
 
-        String s=null;
+          User user = userDao.findByEmail(email);
+          if (user == null) {
+              throw new IllegalArgumentException("This user not exists !!!");
+          }
 
-        for (User u : list){
-            if(name.equalsIgnoreCase(u.getName().trim()) && surname.equalsIgnoreCase(u.getSurname().trim())){
-                s="users";
-                break;
-            }else{
-                s="login";
-            }
+          BCrypt.Result rs = verify.verify(password.toCharArray(),user.getPassword().toCharArray());
+          if(!rs.verified){
+              throw new IllegalArgumentException("Password is incorrect!!!");
+          }
+          req.getSession().setAttribute("loggedInUser",user);
+          resp.sendRedirect("users");
 
-        }
-
-          resp.sendRedirect(s);
-
-      }else{
-            req.getRequestDispatcher("login.jsp").forward(req,resp);
-        }
+      }catch(Exception exception){
+          ControllerUtil.errorPage(resp,exception);
+      }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req,resp);
+        req.getRequestDispatcher("login.jsp").forward(req,resp);
     }
 }

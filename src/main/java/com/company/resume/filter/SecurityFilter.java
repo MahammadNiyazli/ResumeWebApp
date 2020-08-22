@@ -1,13 +1,15 @@
 package com.company.resume.filter;
 
+import com.company.resume.controller.ControllerUtil;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName ="JspFilter",urlPatterns = {"*.jsp"})
-public class JspFilter implements Filter {
+@WebFilter(filterName ="SecurityFilter",urlPatterns = {"*"})
+public class SecurityFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
@@ -15,7 +17,11 @@ public class JspFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        response.sendRedirect("error?msg=not found ");
+        if((!request.getRequestURI().endsWith("login") && !request.getRequestURI().contains("error") )&& request.getSession().getAttribute("loggedInUser")==null){
+            response.sendRedirect("login");
+        }else{
+            filterChain.doFilter(request,response);
+        }
 
 
     }

@@ -14,26 +14,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <link rel="stylesheet" type="text/css" href="assets/css/users.css">
 </head>
 <body>
-<%
- if(request.getAttribute("notFound")!=null){ %>
-<div class="alert alert-warning" style="text-align: center">
-    <strong>Warning!</strong> This user not found.
-</div>
- <%}%>
-<div class="login">
+
+<div style="width: 50%;margin:0 auto">
 <form style="margin-top: 100px" method="POST" action="login">
     <div class="form-group">
-     <%--@declare id="name"--%><label for="name" >Name</label>
-        <input  class="form-control" style="padding:25px" type="text" name="name" placeholder="Enter name">
+     <%--@declare id="email"--%><label for="email" >Email</label>
+        <input  class="form-control" style="padding:25px" type="email" name="email" placeholder="Enter email">
     </div>
     <div class="form-group">
-        <%--@declare id="surname"--%><label for="surname" >Surname</label>
-            <input style="padding:25px" class="form-control" type="text" name="surname" placeholder="Enter surname">
+        <%--@declare id="password"--%><label for="password" >Password</label>
+            <input style="padding:25px" class="form-control" type="password" name="password" placeholder="Enter password">
     </div>
-    <input type="submit" name="Submit" VALUE="Submit" class="btn btn-outline-info" style="color: aliceblue">
+    <input type="submit" name="Submit" value="Submit" class="btn btn-outline-success">
 </form>
 </div>
 </body>

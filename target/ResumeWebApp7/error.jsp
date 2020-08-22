@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="alert alert-danger" >
-   <div style="margin: 0 auto;width: 196px">
+   <div style="margin: 0 auto;width:100%;text-align: center">
        <strong>Danger! </strong><%=request.getParameter("msg")%>
    </div>
 </div>

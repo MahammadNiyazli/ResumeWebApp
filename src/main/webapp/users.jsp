@@ -44,7 +44,31 @@
 
             <input class="btn btn-outline-primary " style="margin-left: 10px;" type="submit" name="search"
                    value="Search">
+            <input class="btn btn-outline-primary " style="margin-left: 50%;"  data-toggle="modal" data-target="#logOutModel" type="button" name="logout"
+                   value="LogOut">
         </form>
+
+        <div class="modal fade" id="logOutModel" tabindex="-1" role="dialog" aria-labelledby="LogOutModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="LogOutModalLabel">LogOut</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure?
+                    </div>
+                    <div class="modal-footer">
+                        <form action="logout" method="POST">
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger" >LogOut</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
     </div>
 
     <hr noshade/>
